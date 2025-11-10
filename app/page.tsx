@@ -1,5 +1,5 @@
 
-import { Proposals } from "@/components/Proposals";
+import { Proposals } from "@/components/Proposals/List";
 
 export default function Home() {
   return (
@@ -20,7 +20,7 @@ export default function Home() {
             </li>
           </ul>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+        <div className="flex w-full gap-4 text-base font-medium sm:flex-row">
           <Proposals />
         </div>
       </main >
