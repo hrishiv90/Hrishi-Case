@@ -32,8 +32,8 @@ export function ProposalPreview({ data, setProposal }: ProposalPreviewProps) {
       {data.sections?.map((s, i) => (
         <div key={i} className="mb-3">
           <h3 className="font-medium">{s.title}</h3>
-          {s.content && <p className="text-sm text-gray-600">{s.content}</p>}
-          {s.items && (
+          {s.content ? <p className="text-sm text-gray-600">{s.content}</p> : null}
+          {s.items ? (
             <ul className="list-disc list-inside text-sm text-gray-600">
               {s.items.map((item, j) => (
                 <li key={j}>
@@ -41,7 +41,7 @@ export function ProposalPreview({ data, setProposal }: ProposalPreviewProps) {
                 </li>
               ))}
             </ul>
-          )}
+          ) : null}
         </div>
       ))}
     </div>
