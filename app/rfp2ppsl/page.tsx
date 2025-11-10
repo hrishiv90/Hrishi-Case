@@ -63,13 +63,13 @@ export default function Rfp2ppslPage() {
         </button>
       </form>
 
-      {data && (
+      {data ? (
         <div className="mt-6">
           <div className="mb-3">
             <ProposalPreview data={JSON.parse(data)} setProposal={setProposal} />
           </div>
         </div>
-      )}
+      ) : null}
 
       {proposal && (
         <button
