@@ -32,7 +32,7 @@ export function Proposals() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
       {proposals.map((p) => (
-        <div key={p.id} className="p-6 rounded-lg border shadow-sm">
+        <div key={p.uuid} className="p-6 rounded-lg border shadow-sm">
           <h3 className="text-lg font-semibold -md-2">{p.title}</h3>
           <p className="text-sm text-gray-600">{p.description}</p>
           <p className="text-sm text-gray-600">{p.status}</p>

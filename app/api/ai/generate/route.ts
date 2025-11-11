@@ -2,6 +2,31 @@ import { generateText } from 'ai'
 import { NextResponse } from 'next/server'
 import { extractionPrompt, proposalPrompt } from '@/lib/prompts'
 import { mistral, type MistralLanguageModelOptions } from '@ai-sdk/mistral'
+import z from "zod"
+
+const outputSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  client: z.object({
+    first_name: z.string().nullish(),
+    last_name: z.string().nullish(),
+    email: z.string().nullish(),
+    phone: z.string().nullish(),
+    company_name: z.string().nullish(),
+  }).nullish(),
+  sections: z.array(
+    z.object({
+      title: z.string().nullish(),
+      items: z.array(
+        z.object({
+          name: z.string().nullish(),
+          value: z.string().nullish()
+        })
+      ).nullish(),
+      content: z.any().nullish(),
+    })
+  ).nullish(),
+})
 
 export async function POST(req: Request) {
   const userInput = await req.json()
@@ -25,8 +50,14 @@ export async function POST(req: Request) {
     prompt: proposalPrompt(extracted),
   })
   const proposalContent = getJsonText(proposal.text)
+  const formattedData = outputSchema.safeParse(proposalContent)
+  if (formattedData.error) {
+    throw new Error(`Error in parsing: ${formattedData.error.message}`, {
+      cause: formattedData.error.cause,
+    })
+  }
 
-  return NextResponse.json(proposalContent)
+  return NextResponse.json(formattedData.data)
 }
 
 function getJsonText(data: string) {

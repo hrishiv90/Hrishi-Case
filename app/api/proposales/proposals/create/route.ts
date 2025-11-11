@@ -1,4 +1,12 @@
 import { NextResponse } from 'next/server'
+import z from "zod"
+
+const createProposalResponseSchema = z.object({
+  proposal: {
+    uuid: z.string(),
+    url: z.string(),
+  }
+})
 
 export async function POST(req: Request) {
   const inputData = await req.json()
@@ -9,7 +17,10 @@ export async function POST(req: Request) {
     language: "English",
     contact_email: `${process.env.PROPOSALES_CONTACT_EMAIL}`,
     title_md: inputData.title,
-    data: inputData.sections[0],
+    description: inputData.introduction,
+    data: {
+      data: inputData.sections
+    }
   }
   if (inputData.client && inputData.client.email) {
     data.recipient = {

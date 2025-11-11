@@ -38,8 +38,8 @@ Output format:
       {"name": "Venue rental", "value": 1000},
       {"name": "Catering", "value": 2000}
     ]},
-    {"title": "Overview", "content": "..."},
-    {"title": "Offer", "content": "..."},
+    {"title": "Overview", "content": "description"},
+    {"title": "Offer", "content": "offer details"},
   ],
 }
 `;

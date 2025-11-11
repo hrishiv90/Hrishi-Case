@@ -1,12 +1,12 @@
 'use client'
 
 import { useState } from 'react'
-import { ProposalPreview } from '@/components/ProposalPreview'
+import { ProposalData, ProposalPreview } from '@/components/ProposalPreview'
 
 export default function Rfp2ppslPage() {
   const [input, setInput] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [data, setData] = useState<any>(null)
+  const [generatedData, setGeneratedData] = useState<ProposalData | null>(null)
 
   async function handleSubmit() {
     setIsLoading(true)
@@ -17,8 +17,8 @@ export default function Rfp2ppslPage() {
       },
       body: JSON.stringify(input)
     })
-    const resJson = await result.json()
-    setData(JSON.stringify(resJson))
+    const resJson: ProposalData = await result.json()
+    setGeneratedData(resJson)
     setIsLoading(false)
   }
 
@@ -63,10 +63,10 @@ export default function Rfp2ppslPage() {
         </button>
       </form>
 
-      {data ? (
+      {generatedData ? (
         <div className="mt-6">
           <div className="mb-3">
-            <ProposalPreview data={JSON.parse(data)} setProposal={setProposal} />
+            <ProposalPreview data={generatedData} setProposal={setProposal} />
           </div>
         </div>
       ) : null}

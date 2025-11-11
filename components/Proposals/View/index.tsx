@@ -31,7 +31,7 @@ export function ProposalView({ id }: { id: string }) {
   return (
     <div className="grid grid-cols-1">
       <div key={id} className="p-6 flex gap-2 flex-col">
-        <h3 className="text-lg font-semibold -md-2">{proposal.title}</h3>
+        <h3 className="text-lg font-semibold -md-2">{proposal.title ?? proposal.title_md}</h3>
         <p className="text-sm text-gray-600"><u>Status</u>- {proposal.status}</p>
         {proposal.description ?
           <p className="text-sm text-gray-600"><u>Description</u>- {proposal.description}</p>
